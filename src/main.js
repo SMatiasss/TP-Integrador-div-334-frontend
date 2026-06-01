@@ -19,6 +19,7 @@ async function initInicio() {
     if (!document.querySelector("#pagina-inicio")) return
 
     ({ teclados, mouses } = await cargarDatos())
+    ultimoArray = teclados
     imprimirProductos(teclados)
 }
 
@@ -206,6 +207,8 @@ productos.forEach(tipoProducto => {
     tipoProducto.addEventListener('click', () =>{
         nombreProducto = tipoProducto.innerHTML.toLowerCase()
         ultimoArray = (nombreProducto === "teclados") ? teclados : mouses;
+
+        imprimirProductos(ultimoArray);
     })
 });
 
@@ -215,6 +218,5 @@ productos.forEach(tipoProducto => {
 let teclados = [] // Formato: visible en teclados.json
 let mouses = [] // Formato: visible en mouses.json
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [] // formato: [{productos: obj(teclado/mouse), cantidad: int}, {...}]
-let ultimoArray = teclados
-
+let ultimoArray = []
 init()
