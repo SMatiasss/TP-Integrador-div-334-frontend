@@ -2,6 +2,13 @@
 /* Layout base */
 /*************************************************************/
 
+
+:root{
+    --bgc-tema: #F5F5F7;
+    --texto-tema: #000;
+    
+}
+
 * {
     box-sizing: border-box;
 }
@@ -9,13 +16,22 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    background-color: #2e2d2d;
-    color: white;
+    background-color: var(--bgc-tema);
+    color: var(--texto-tema);
+    transition: background-color 0.3s, color 0.3s;
+}
+body.modo-oscuro{
+    --bgc-tema: #121212;
+    --texto-tema: #fff;
+}
+.instantaneo{
+    transition: background-color 0s;
 }
 
 header {
     display: flex;
-    background-color: rgb(190, 190, 190);
+    background-color: #434344;
+    color: white;
     align-items: center;
     padding: 0px 20px;
     gap: 15px;
@@ -23,7 +39,7 @@ header {
 
 #logo-y-nombre {
     display: flex;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     align-items: center;
     gap: 15px;
 }
@@ -31,7 +47,7 @@ header {
 #logo {
     height: 40px;
     width: auto;
-    border: 1px solid purple;
+    /* border: 1px solid purple; */
 }
 
 h4,
@@ -44,7 +60,7 @@ a,
 a:active,
 a:link {
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 main {
@@ -52,12 +68,11 @@ main {
     text-align: center;
 }
 
+
 /*************************************************************/
 /* Header general */
 /*************************************************************/
-#menu-izquierda {
-    border: 1px solid blue;
-}
+
 
 #menu-medio {
     display: flex;
@@ -68,7 +83,7 @@ main {
 
 #menu-derecha {
     display: flex;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     margin-left: auto;
 }
 
@@ -99,18 +114,29 @@ ul{
 #contenedor-productos {
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     justify-content: center;
+    gap: 20px;
+
 }
 
 .producto {
     list-style: none;
     border: 1px solid black;
+    border-radius: 10px;
     width: 300px;
     padding: 30px;
+    margin-bottom: 50px;
 }
 
 .producto img{
     width: 100%;
     
+}
+
+
+#cambiar-tema{
+    position: fixed;    /* Lo saca del flujo normal y lo fija en la pantalla */
+    bottom: 20px;       /* Separación de 20px desde abajo */
+    left: 20px;
 }

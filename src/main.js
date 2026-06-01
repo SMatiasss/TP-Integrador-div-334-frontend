@@ -6,6 +6,7 @@ function init() {
     initInicio()
     initCarrito()
     initTicket()
+    cambiarTema()
 }
 
 
@@ -42,13 +43,13 @@ function initTicket() {
 /* Exclusivo de pantalla Index */
 /*************************************************************/
 
-function establecerNombre(){
+function establecerNombre() {
     let botonContinuar = document.getElementById('btn-continuar')
-    
-    if (!botonContinuar) return 
+
+    if (!botonContinuar) return
 
     let inputNombre = document.getElementById('input-nombre')
-    
+
     botonContinuar.addEventListener('click', (e) => {
         let nombre = inputNombre.value.trim()
         if (nombre === "") {
@@ -129,15 +130,15 @@ function imprimirProductos(productos) {
 function filtrarProductos(texto) {
     if (texto != "") {    /* Creo un array nuevo obtenido mediante el filtrado con el texto a los arrays */
 
-    console.log(texto)
-    let resultado = ultimoArray.filter(i =>
-        i.nombre.toLowerCase().includes(texto.toLowerCase())
-    ); 
+        console.log(texto)
+        let resultado = ultimoArray.filter(i =>
+            i.nombre.toLowerCase().includes(texto.toLowerCase())
+        );
 
-    console.log(resultado);
+        console.log(resultado);
 
-    // Imprimo nueva lista.
-    imprimirProductos(resultado)
+        // Imprimo nueva lista.
+        imprimirProductos(resultado)
     } else {
         imprimirProductos(ultimoArray)
     }
@@ -204,13 +205,35 @@ function guardarCarrito() {
 
 const productos = document.querySelectorAll('.tipo-producto')
 productos.forEach(tipoProducto => {
-    tipoProducto.addEventListener('click', () =>{
+    tipoProducto.addEventListener('click', () => {
         nombreProducto = tipoProducto.innerHTML.toLowerCase()
         ultimoArray = (nombreProducto === "teclados") ? teclados : mouses;
 
         imprimirProductos(ultimoArray);
     })
 });
+
+function cambiarTema() {
+    const botonTema = document.getElementById("cambiar-tema");
+    const icono = document.getElementById("icono");
+
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('instantaneo'); //Si al abrir la pagina ya estaba en modo oscuro, no transiciona porque queda raro
+        document.body.classList.add('modo-oscuro');
+        icono.innerHTML = "☀️";
+    }
+
+    botonTema.addEventListener('click', () => {
+        document.body.classList.remove('instantaneo'); //Si cambio manualmente el tema, se cambia con una transición suave
+        document.body.classList.toggle('modo-oscuro');
+        let estaOscuro = document.body.classList.contains('modo-oscuro')
+        icono.innerHTML = estaOscuro ? "☀️" : "🌙"
+
+        localStorage.setItem('theme', estaOscuro ? 'dark' : 'light');
+    })
+    
+}
+
 
 /*************************************************************/
 /* Creacion de arrays para usar y ejecución init */
