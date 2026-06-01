@@ -6,7 +6,6 @@ function init() {
     initInicio()
     initCarrito()
     initTicket()
-    asignarNombre()
 }
 
 
@@ -97,6 +96,7 @@ async function cargarDatos() {
 */
 
 function imprimirProductos(productos) {
+
     const contenedor = document.querySelector("#contenedor-productos")
     contenedor.innerHTML = `
     <p>No hay Productos disponibles</p>
@@ -122,22 +122,23 @@ function imprimirProductos(productos) {
         contenedor.innerHTML += `
         </ul>`
     }
+
 }
 
 function filtrarProductos(texto) {
     if (texto != "") {    /* Creo un array nuevo obtenido mediante el filtrado con el texto a los arrays */
 
-    /* let resultado = array.filter(i =>
+    console.log(texto)
+    let resultado = ultimoArray.filter(i =>
         i.nombre.toLowerCase().includes(texto.toLowerCase())
     ); 
 
     console.log(resultado);
 
     // Imprimo nueva lista.
-    imprimirProductos(resultado); */}
-    else {
-        /* mostrar el ultimo tipo de producto seleccionado */
-        /* imprimirProductos(UltimoArray) */
+    imprimirProductos(resultado)
+    } else {
+        imprimirProductos(ultimoArray)
     }
 
 }
@@ -200,12 +201,13 @@ function guardarCarrito() {
     localStorage.setItem("carrito", JSON.stringify(carrito))
 }
 
-
-function asignarNombre(){
-    let nombre = localStorage.getItem('nombre')
-    let nombreElemento = document.getElementById('nombre') ?? 'Indefinido'
-    nombreElemento.innerHTML = nombre
-}
+const productos = document.querySelectorAll('.tipo-producto')
+productos.forEach(tipoProducto => {
+    tipoProducto.addEventListener('click', () =>{
+        nombreProducto = tipoProducto.innerHTML.toLowerCase()
+        ultimoArray = (nombreProducto === "teclados") ? teclados : mouses;
+    })
+});
 
 /*************************************************************/
 /* Creacion de arrays para usar y ejecución init */
@@ -213,5 +215,6 @@ function asignarNombre(){
 let teclados = [] // Formato: visible en teclados.json
 let mouses = [] // Formato: visible en mouses.json
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [] // formato: [{productos: obj(teclado/mouse), cantidad: int}, {...}]
+let ultimoArray = teclados
 
 init()
