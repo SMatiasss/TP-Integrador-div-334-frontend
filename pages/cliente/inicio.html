@@ -7,34 +7,39 @@
     <title>Nombre de la pag</title>
     <link rel="icon" href="../../assets/icono/favicon.ico">
     <link rel="stylesheet" href="../../css/main.css">
-    <script src="../../src/main.js" defer></script>
+    <link rel="stylesheet" href="../../css/inicio.css">
 </head>
 
 <body id="pagina-inicio">
     <header>
-        <div id="logo-y-nombre">
-            <img src="../../assets/icono/icono.png" id="logo">
-            <h4 id="nombre-empresa">Big'n</h4>
-        </div>
         <nav id="menu-izquierda">
+            <div id="logo-y-nombre">
+                <img src="../../assets/icono/icono.png" id="logo">
+                <h4 id="nombre-empresa">Big'n</h4>
+            </div>
             <a href="#">Inicio</a>
-            <button class="tipo-producto">Teclados</button>
-            <button class="tipo-producto">Mouses</button>
-        </nav>
-        <p id="menu-medio">Soria Matias - Terenghi Goy Estéfano</p>
-        <nav id="menu-derecha">
-            <input type="text" placeholder="Buscar..." oninput="filtrarProductos(this.value)" id="barra-busqueda">
-            <a href="carrito.html">Mi carrito</a>
+            
+            <p id="menu-medio">Soria Matias - Terenghi Goy Estéfano</p>
+            <nav id="menu-derecha">
+                <input type="text" placeholder="Buscar..." oninput="filtrarProductos(this.value)" id="barra-busqueda">
+                <a href="carrito.html">Mi carrito</a>
+            </nav>
         </nav>
     </header>
 
     <main>
+        <div class="categorias">
+            <button class="tipo-producto aparecer">Teclados</button>
+            <button class="tipo-producto">Mouses</button>
+        </div>
+
         <section id="contenedor-productos"></section>
         <button onclick="window.location.href='../../index.html'">Cancelar</button>
         <button id="cambiar-tema" class="boton-flotante-tema" aria-label="Cambiar tema">
             <span id="icono">🌙</span>
         </button>
     </main>
+    <script src="../../src/main.js" defer></script>
 
 </body>
 

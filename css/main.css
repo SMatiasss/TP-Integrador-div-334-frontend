@@ -102,38 +102,6 @@ main {
 /* Productos JS */
 /*************************************************************/
 
-ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center; 
-    gap: 20px;            
-    width: 100%;
-}
-
-#contenedor-productos {
-    display: flex;
-    flex-wrap: wrap;
-    /* border: 1px solid red; */
-    justify-content: center;
-    gap: 20px;
-
-}
-
-.producto {
-    list-style: none;
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 300px;
-    padding: 30px;
-    margin-bottom: 50px;
-}
-
-.producto img{
-    width: 100%;
-    
-}
 
 
 #cambiar-tema{

@@ -115,8 +115,10 @@ function imprimirProductos(productos) {
                         <p class="precio-producto">$${producto.precio}</p>
                         <p class="descripcion-producto">${producto.info}</p>
                     </div>
-                    <button onclick="actualizarCarrito(-1, '${nombre}')"> - </button>
-                    <button onclick="actualizarCarrito(1, '${nombre}')"> + </button>
+                    <div class="botones">
+                        <button onclick="actualizarCarrito(-1, '${nombre}')"> - </button>
+                        <button onclick="actualizarCarrito(1, '${nombre}')"> + </button>
+                    </div>
                 </li>
             `
         });
@@ -144,7 +146,6 @@ function filtrarProductos(texto) {
     }
 
 }
-
 
 
 /*************************************************************/
@@ -206,7 +207,10 @@ function guardarCarrito() {
 const productos = document.querySelectorAll('.tipo-producto')
 productos.forEach(tipoProducto => {
     tipoProducto.addEventListener('click', () => {
-        nombreProducto = tipoProducto.innerHTML.toLowerCase()
+        productos.forEach(p => p.classList.remove('aparecer'));
+        tipoProducto.classList.add('aparecer');
+
+        let nombreProducto = tipoProducto.innerHTML.toLowerCase()
         ultimoArray = (nombreProducto === "teclados") ? teclados : mouses;
 
         imprimirProductos(ultimoArray);

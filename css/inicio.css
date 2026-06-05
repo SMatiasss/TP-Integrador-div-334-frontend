@@ -1,0 +1,103 @@
+:root{
+    --bgc-tema: #F5F5F7;
+    --texto-tema: #000;   
+}
+
+.tipo-producto{
+    border: none;
+    font-size: 20px;
+    background-color: var(--bgc-tema);
+    cursor: pointer;
+}
+.tipo-producto::after{
+    content: "";
+    width: 0%;
+    height: 3px;
+    display: block;
+    background-color: black;
+    opacity: 0;
+    transition: 0.3s ease-out;
+    margin: 0 auto;
+}
+.tipo-producto.aparecer::after{
+    opacity: 1;
+    width: 100%;
+}
+
+
+
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+    gap: 30px;            
+    width: 100%;
+}
+
+#contenedor-productos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+
+}
+
+.producto {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+    background-color: #ffffff;
+    list-style: none;
+    border-radius: 16px;
+    border: 2px solid rgb(127, 127, 127);
+    width: 300px;
+    padding: 20px;
+    margin-bottom: 50px;
+    height: 420px;
+}
+
+.producto img{
+    width: 100%;
+    object-fit: contain;
+    height: 180px;
+}
+
+.producto h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin: 20px 0 5px 0;
+}
+
+.precio-producto {
+    font-size: 16px;
+    font-weight: 500;
+    color: #383838;
+    margin-bottom: 15px;
+}
+
+.producto button {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #d2d2d7;
+    border-radius: 10px;
+    background-color: #d2d2d2;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: all 0.2s ease;
+
+}
+.producto button:hover {
+    background-color: #000000; 
+    color: #ffffff;
+    border-color: #000000;
+}
+
+.producto img, .producto h3, .precio-producto, .producto button{
+    margin-top: 23px;
+}
