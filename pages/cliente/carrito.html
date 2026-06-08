@@ -6,6 +6,7 @@
     <title>Nombre de la pag</title>
     <link rel="icon" href="../../assets/icono/favicon.ico">
     <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/carrito.css">
     <script src="../../src/main.js" defer></script>
 </head>
 
@@ -23,12 +24,15 @@
 
     <main>
         <section id="contenedor-tabla">
-            <table id="tabla-carrito"></table>
+            <table></table>
         </section>
         <section id="contenedor-valor-final">
             <p id="valor-final">Total a pagar:</p>
             <button onclick="window.location.href='ticket.html'">Confirmar</button>
-        </section>  
+        </section>
+        <button id="cambiar-tema" class="boton-flotante-tema" aria-label="Cambiar tema">
+            <span id="icono">🌙</span>
+        </button>
     </main>
     
 </body>

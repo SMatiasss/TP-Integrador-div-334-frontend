@@ -1,0 +1,48 @@
+table {
+    width: 60%;
+    table-layout: auto;
+    margin: 0 auto;
+    border-radius: 16px;
+    background-color: pink; /* nse que color ponerle :3 */
+    color: white;
+}
+
+th,td {
+    padding: 5px 7px;
+}
+
+td button {
+    background-color: inherit;
+    border: none;
+}
+
+td button:hover {
+    background-color: inherit;
+    filter:brightness(100%)
+}
+
+th:first-child,
+td:first-child {
+    width: auto;
+    min-width: 300px;
+    text-align: left;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+    width: 80px;
+    text-align: center;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+    width: 160px;
+    text-align: center;
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+    width: 1%;
+    white-space: nowrap;
+    text-align: center;
+}

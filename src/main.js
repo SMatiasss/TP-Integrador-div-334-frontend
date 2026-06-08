@@ -116,8 +116,8 @@ function imprimirProductos(productos) {
                         <p class="descripcion-producto">${producto.info}</p>
                     </div>
                     <div class="botones">
-                        <button onclick="actualizarCarrito(-1, '${nombre}')"> - </button>
                         <button onclick="actualizarCarrito(1, '${nombre}')"> + </button>
+                        <button onclick="actualizarCarrito(-1, '${nombre}')"> - </button>
                     </div>
                 </li>
             `
@@ -152,7 +152,7 @@ function filtrarProductos(texto) {
 /* Exclusivo de pantalla Carrito */
 /*************************************************************/
 function imprimirTabla() {
-    const tabla = document.querySelector("#tabla-carrito")
+    const tabla = document.querySelector("table")
     const valorFinal = document.querySelector("#valor-final")
     let total = 0
 
@@ -161,9 +161,10 @@ function imprimirTabla() {
         <th>Producto</th>
         <th>Cantidad</th>
         <th>Precio total</th>
+        <th></th>
     </tr>
     `
-    if (carrito != []) {
+    if (carrito.length > 0) {
         carrito.forEach(i => {
             const valor = i.producto.precio * i.cantidad
             tabla.innerHTML += `
@@ -171,13 +172,17 @@ function imprimirTabla() {
                 <td>${i.producto.nombre}</td>
                 <td>${i.cantidad}</td>
                 <td>$${valor}</td>
+                <td>
+                    <button onclick="actualizarCarrito(1, '${i.producto.nombre}')">+</button>
+                    <button onclick="actualizarCarrito(-1, '${i.producto.nombre}')"> - </button>
+                </td>
             </tr>
-            `
+            `           /*LOS BOTONES NECESITAN UN EVENTLISTENER QUE REIMPRIMA LA TABLA */
             total += valor
         });
     }
 
-    valorFinal.innerHTML += ` $${total}`
+    valorFinal.innerHTML = `Total a pagar: $${total}`
 }
 
 
@@ -220,6 +225,7 @@ productos.forEach(tipoProducto => {
 function cambiarTema() {
     const botonTema = document.getElementById("cambiar-tema");
     const icono = document.getElementById("icono");
+    /* const botones = document.querySelectorAll("button"); */ /* ayudame con esto estefanito */
 
     if (localStorage.getItem('theme') === 'dark') {
         document.body.classList.add('instantaneo'); //Si al abrir la pagina ya estaba en modo oscuro, no transiciona porque queda raro

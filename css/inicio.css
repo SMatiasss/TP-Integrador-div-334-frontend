@@ -1,20 +1,28 @@
 :root{
     --bgc-tema: #F5F5F7;
-    --texto-tema: #000;   
+    --texto-tema: #000;
+    --subrayado: rgb(127, 127, 127);
 }
 
 .tipo-producto{
     border: none;
     font-size: 20px;
     background-color: var(--bgc-tema);
+    color: var(--texto-tema);
     cursor: pointer;
 }
+
+.tipo-producto:hover{
+    background-color: inherit;
+    color: inherit;
+}
+
 .tipo-producto::after{
     content: "";
     width: 0%;
     height: 3px;
     display: block;
-    background-color: black;
+    background-color: currentColor;
     opacity: 0;
     transition: 0.3s ease-out;
     margin: 0 auto;
