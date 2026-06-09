@@ -2,23 +2,20 @@
     "mouses": [
         {
             "nombre": "Logitech G502",
-            "info": "",
             "precio": 85000,
-            "stock": 55,
+            "disponibilidad": true,
             "img": ""
         },
         {
             "nombre": "Razer DeathAdder V3",
-            "info": "",
             "precio": 99000,
-            "stock": 35,
+            "disponibilidad": true,
             "img": ""
         },
         {
             "nombre": "SteelSeries Rival 3",
-            "info": "",
             "precio": 47000,
-            "stock": 95,
+            "disponibilidad": true,
             "img": ""
         }
     ]

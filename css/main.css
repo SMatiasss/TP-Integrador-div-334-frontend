@@ -64,12 +64,12 @@ header {
     /* border: 1px solid purple; */
 }
 
-h4,
+/* h4,
 nav {
-    /* position: relative; */
-    /* top: 18px; */
-    /* border: 1px solid blue; */
-}
+    position: relative;
+    top: 18px;
+    border: 1px solid blue; 
+} */
 
 a,
 a:active,
