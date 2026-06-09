@@ -1,13 +1,11 @@
-#input-nombre {
+input {
     width: 55%;
-    padding: 5px;
     font-size: 48px;
-    border-radius: 16px;
-    margin-bottom: 15px;
 }
 
 main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 15%;
 }

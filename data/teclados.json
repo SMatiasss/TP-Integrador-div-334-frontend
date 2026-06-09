@@ -4,21 +4,21 @@
             "nombre": "Redragon Kumara",
             "info": "",
             "precio": 45000,
-            "stock": 100,
+            "disponibilidad": true,
             "img": "../../assets/teclados/kumara.png"
         },
         {
             "nombre": "Logitech G Pro",
             "info": "",
             "precio": 120000,
-            "stock": 30,
+            "disponibilidad": true,
             "img": "../../assets/teclados/logitech-g-pro.jpeg"
         },
         {
             "nombre": "Hyperx Alloy",
             "info": "",
             "precio": 98000,
-            "stock": 40,
+            "disponibilidad": true,
             "img": "../../assets/teclados/hyperx-alloy.jpg"
         }
     ]

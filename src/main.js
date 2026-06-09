@@ -196,7 +196,6 @@ function actualizarCarrito(operador, nombre) {
 
     if (!productoEnCarrito) {
         carrito.push({ producto: producto, cantidad: 1 })
-        producto.stock--
     } else {
         productoEnCarrito.cantidad += operador
         if (productoEnCarrito.cantidad <= 0) carrito.splice((carrito.findIndex(i => i.producto.nombre == nombre)), 1)
@@ -225,7 +224,6 @@ productos.forEach(tipoProducto => {
 function cambiarTema() {
     const botonTema = document.getElementById("cambiar-tema");
     const icono = document.getElementById("icono");
-    /* const botones = document.querySelectorAll("button"); */ /* ayudame con esto estefanito */
 
     if (localStorage.getItem('theme') === 'dark') {
         document.body.classList.add('instantaneo'); //Si al abrir la pagina ya estaba en modo oscuro, no transiciona porque queda raro

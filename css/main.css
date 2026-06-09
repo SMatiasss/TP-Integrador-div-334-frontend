@@ -1,40 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-/*************************************************************/
-/* Layout base */
-/*************************************************************/
-/* Paleta de colores pe
-no que tienen que ir todos, con 2 está bien, es decir un color y un borde o 2 colores blabla
-modo oscuro (mas oscuro a mas claro, me gustaría evitar el mas oscuro y son opciones):
-body:
-#101010
-#1C1C1E (borde: #232325)
-#2B2B2D (borde: #313133)
-
-header:
-una de arriba pa mi, podría ser el color general un borde incluso. pero pa mí tendría que ser mas oscuro
-
-letras:
-white
-tené en cuenta que los bordes son respecto al color anterior.
-
-modo claro (mas claro a mas oscuro:
-body:
-white
-#F5F5F7
-
-header:
-#8dcaf0
-
-letras:
-header = #5086a7
-body = 
-*/
 
 :root{
-    --bgc-tema: #F5F5F7;
-    --texto-tema: #000;
-    --fondo-boton: #d2d2d2  /* #1C1C1E */
-    
+    --bgc-tema-body: #F5F5F7;
+    --texto-tema-body: #101010;
+    --bgc-elemento-body: #fff;
+    --borde-elemento-body: #c0c0c2;
+    --color1-header: #6cc0f5;
+    --color2-header: #cfedff;
+    --bgc-hover: var(--texto-tema-body);
 }
 
 * {
@@ -43,16 +16,26 @@ body =
     box-sizing: border-box;
 }
 
+main {
+    margin: 5%;
+    text-align: center;
+}
+
 body {
     margin: 0;
-    background-color: var(--bgc-tema);
-    color: var(--texto-tema);
+    background-color: var(--bgc-tema-body);
+    color: var(--texto-tema-body);
     transition: background-color 0.3s, color 0.3s;
 }
+
 body.modo-oscuro{
-    --bgc-tema: #121212;
-    --texto-tema: #fff;
-    
+    --bgc-tema-body: #101010;
+    --texto-tema-body: #fff;
+    --bgc-elemento-body: #2B2B2D;
+    --borde-elemento-body: #414144;
+    --color1-header: #01253b;
+    --color2-header: #3f6f8d;
+    --bgc-hover: var(--texto-tema-body);
 }
 .instantaneo{
     transition: background-color 0s;
@@ -61,12 +44,11 @@ body.modo-oscuro{
 header {
     position: relative;
     display: flex;
-    background-color: #8dcaf0;
-    color: #5086a7;
+    background-color: var(--color1-header);
+    color: var(--color2-header);
     align-items: center;
     padding: 0px 20px;
     gap: 15px;
-    
 }
 
 #logo-y-nombre {
@@ -84,8 +66,8 @@ header {
 
 h4,
 nav {
-    position: relative;
-    top: 18px;
+    /* position: relative; */
+    /* top: 18px; */
     /* border: 1px solid blue; */
 }
 
@@ -93,19 +75,16 @@ a,
 a:active,
 a:link {
     text-decoration: none;
-    color: inherit;
-}
-
-main {
-    margin: 15%;
-    text-align: center;
+    /* color: inherit; */
 }
 
 button {
     height: 36px;
-    border: 1px solid #d2d2d7;
+    padding: 0 10px;
+    border: 1px solid var(--borde-elemento-body);
     border-radius: 10px;
-    background-color: var(--fondo-boton);
+    background-color: var(--bgc-elemento-body);
+    color: var(--texto-tema-body);
     font-size: 20px;
     cursor: pointer;
     margin: 0 5px;
@@ -113,17 +92,21 @@ button {
 
 }
 
-button.modo-oscuro {
-    --fondo-boton: #1C1C1E;
-}
-
 button:hover {
-    background-color: #000000; 
-    color: #ffffff;
-    border-color: #000000;
+    background-color: var(--bgc-hover); 
+    color: var(--bgc-tema-body);
+    border-color: var(--borde-elemento-body);
 }
 
+button:active {
+    transform: scale(1.2);
+}
 
+input {
+    border-radius: 16px;
+    padding: 5px;
+    border: 2px solid var(--color2-header);
+}
 /*************************************************************/
 /* Header general */
 /*************************************************************/
@@ -135,13 +118,23 @@ button:hover {
     left: 0;
     width: 100%;
     text-align: center;
-    top: 39px;
+    /* top: 22px; /* era 39px antes */ 
     margin: 0;
     /* border: 1px solid pink; */
 }
 
+.elemento-header {
+    display: inline-block;
+    border-radius: 16px;
+    padding: 5px;
+    background-color: var(--color2-header);
+    color: var(--color1-header);
+    width: auto;
+}
+
 #menu-derecha {
     display: flex;
+    align-items: center;
     /* border: 1px solid green; */
     margin-left: auto;
     gap: 15px;
