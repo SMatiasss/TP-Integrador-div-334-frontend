@@ -68,48 +68,34 @@ function establecerNombre() {
 /* Exclusivo de pantalla Inicio */
 /*************************************************************/
 async function cargarDatos() {
-    const respuestaTeclados = await fetch("../../data/teclados.json")
-    const jsonTeclados = await respuestaTeclados.json()
-
-    const respuestaMouses = await fetch("../../data/mouses.json")
-    const jsonMouses = await respuestaMouses.json()
-
-
-    return { teclados: jsonTeclados.teclados, mouses: jsonMouses.mouses }
-}
-
-/* 
-async function cargarJSON(direccion) {
     try {
-        const respuesta = await fetch(direccion)
-        if (!respuesta.ok) return []
-        return await respuesta.json()
-    } catch {
-        return []
+        const response = await fetch('http://localhost:3000/api/productos')
+        const datos = await response.json()
+        const apiProductos = datos.payload // const para evitar pisar la variable del DOM
+
+        const listaTeclados = apiProductos.filter(p => p.categoria === "teclado")
+        const listaMouses = apiProductos.filter(p => p.categoria === "mouse")
+
+        return { teclados: listaTeclados, mouses: listaMouses }
+
+    } catch (error) {
+        console.log(error)
+        return { teclados: [], mouses: [] }
     }
 }
-    
-async function cargarDatos() {
-    const teclados = await cargarJSON("../data/teclados.json")
-    const mouses = await cargarJSON("../data/mouses.json")
 
-    return {teclados, mouses}
-}    
-*/
-
-function imprimirProductos(productos) {
-
+async function imprimirProductos(productosAMostrar) {
     const contenedor = document.querySelector("#contenedor-productos")
-    contenedor.innerHTML = `
-    <p>No hay Productos disponibles</p>
-    `
-    if (productos.length > 0) {
-        contenedor.innerHTML = `<ul>`
-        productos.forEach(producto => {
+    if (!contenedor) return
+
+    contenedor.innerHTML = "" // Limpiamos el contenedor antes de renderizar para que no duplique
+
+    try {
+        productosAMostrar.forEach(producto => {
             const nombre = producto.nombre
             contenedor.innerHTML += `
                 <li class="producto">
-                    <img src=${producto.img}>
+                    <img src="${producto.img}">
                     <div class="contenido">
                         <h3>${nombre}</h3>
                         <p class="precio-producto">$${producto.precio}</p>
@@ -121,11 +107,9 @@ function imprimirProductos(productos) {
                 </li>
             `
         });
-
-        contenedor.innerHTML += `
-        </ul>`
+    } catch (error) {
+        console.log(error)
     }
-
 }
 
 function filtrarProductos(texto) {
@@ -153,6 +137,7 @@ function filtrarProductos(texto) {
 function imprimirTabla() {
     const tabla = document.querySelector("table")
     const valorFinal = document.querySelector("#valor-final")
+    if (!tabla || !valorFinal) return
     let total = 0
 
     tabla.innerHTML = `
@@ -165,7 +150,7 @@ function imprimirTabla() {
     `
     if (carrito.length > 0) {
         console.log(carrito);
-        
+
         carrito.forEach(i => {
             const valor = i.producto.precio * i.cantidad
             tabla.innerHTML += `
@@ -178,7 +163,7 @@ function imprimirTabla() {
                     <button onclick="actualizarCarrito(1, '${i.producto.nombre}')"> + </button>
                 </td>
             </tr>
-            `           /*LOS BOTONES NECESITAN UN EVENTLISTENER QUE REIMPRIMA LA TABLA */
+            `
             total += valor
         });
     }
@@ -196,27 +181,35 @@ function actualizarCarrito(operador, nombre) {
     const productoEnCarrito = carrito.find(i => i.producto.nombre == nombre)
 
     if (!productoEnCarrito) {
-        carrito.push({ producto: producto, cantidad: 1 })
+        if (operador > 0) carrito.push({ producto: producto, cantidad: 1 })
     } else {
         productoEnCarrito.cantidad += operador
-        if (productoEnCarrito.cantidad <= 0) carrito.splice((carrito.findIndex(i => i.producto.nombre == nombre)), 1)
+        if (productoEnCarrito.cantidad <= 0) {
+            carrito.splice((carrito.findIndex(i => i.producto.nombre == nombre)), 1)
+        }
     }
     guardarCarrito()
     console.log(carrito);
+
+    // Si el usuario está parado en la vista de carrito, refresca la tabla al presionar + o -
+    if (document.querySelector("#pagina-carrito")) {
+        imprimirTabla()
+    }
 }
 
 function guardarCarrito() {
     localStorage.setItem("carrito", JSON.stringify(carrito))
 }
 
-const productos = document.querySelectorAll('.tipo-producto')
-productos.forEach(tipoProducto => {
+// Cambié el nombre a 'menuProductos' para que jamás se choque con los datos de las funciones
+const menuProductos = document.querySelectorAll('.tipo-producto')
+menuProductos.forEach(tipoProducto => {
     tipoProducto.addEventListener('click', () => {
-        productos.forEach(p => p.classList.remove('aparecer'));
+        menuProductos.forEach(p => p.classList.remove('aparecer'));
         tipoProducto.classList.add('aparecer');
 
         let nombreProducto = tipoProducto.innerHTML.toLowerCase()
-        ultimoArray = (nombreProducto === "teclados") ? teclados : mouses;
+        ultimoArray = nombreProducto.includes("teclados") ? teclados : mouses;
 
         imprimirProductos(ultimoArray);
     })
@@ -226,29 +219,31 @@ function cambiarTema() {
     const botonTema = document.getElementById("cambiar-tema");
     const icono = document.getElementById("icono");
 
+    if (!botonTema || !icono) return
+
     if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('instantaneo'); //Si al abrir la pagina ya estaba en modo oscuro, no transiciona porque queda raro
+        document.body.classList.add('instantaneo'); 
         document.body.classList.add('modo-oscuro');
         icono.innerHTML = "☀️";
     }
 
     botonTema.addEventListener('click', () => {
-        document.body.classList.remove('instantaneo'); //Si cambio manualmente el tema, se cambia con una transición suave
+        document.body.classList.remove('instantaneo'); 
         document.body.classList.toggle('modo-oscuro');
         let estaOscuro = document.body.classList.contains('modo-oscuro')
         icono.innerHTML = estaOscuro ? "☀️" : "🌙"
 
         localStorage.setItem('theme', estaOscuro ? 'dark' : 'light');
     })
-    
+
 }
 
 
 /*************************************************************/
 /* Creacion de arrays para usar y ejecución init */
 /*************************************************************/
-let teclados = [] // Formato: visible en teclados.json
-let mouses = [] // Formato: visible en mouses.json
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [] // formato: [{productos: obj(teclado/mouse), cantidad: int}, {...}]
+let teclados = [] 
+let mouses = [] 
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [] 
 let ultimoArray = []
 init()
