@@ -113,11 +113,10 @@ function imprimirProductos(productos) {
                     <div class="contenido">
                         <h3>${nombre}</h3>
                         <p class="precio-producto">$${producto.precio}</p>
-                        <p class="descripcion-producto">${producto.info}</p>
                     </div>
                     <div class="botones">
-                        <button onclick="actualizarCarrito(1, '${nombre}')"> + </button>
                         <button onclick="actualizarCarrito(-1, '${nombre}')"> - </button>
+                        <button onclick="actualizarCarrito(1, '${nombre}')"> + </button>
                     </div>
                 </li>
             `
@@ -165,6 +164,8 @@ function imprimirTabla() {
     </tr>
     `
     if (carrito.length > 0) {
+        console.log(carrito);
+        
         carrito.forEach(i => {
             const valor = i.producto.precio * i.cantidad
             tabla.innerHTML += `
@@ -173,8 +174,8 @@ function imprimirTabla() {
                 <td>${i.cantidad}</td>
                 <td>$${valor}</td>
                 <td>
-                    <button onclick="actualizarCarrito(1, '${i.producto.nombre}')">+</button>
                     <button onclick="actualizarCarrito(-1, '${i.producto.nombre}')"> - </button>
+                    <button onclick="actualizarCarrito(1, '${i.producto.nombre}')"> + </button>
                 </td>
             </tr>
             `           /*LOS BOTONES NECESITAN UN EVENTLISTENER QUE REIMPRIMA LA TABLA */

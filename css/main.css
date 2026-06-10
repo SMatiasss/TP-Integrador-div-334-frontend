@@ -54,7 +54,7 @@ header {
 #logo-y-nombre {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     /* border: 1px solid red; */
 }
 
@@ -64,12 +64,11 @@ header {
     /* border: 1px solid purple; */
 }
 
-/* h4,
-nav {
-    position: relative;
-    top: 18px;
-    border: 1px solid blue; 
-} */
+h4 {
+    font-size: 25px;
+    margin: 10px;
+    /* border: 1px solid blue;  */
+} 
 
 a,
 a:active,

@@ -3,15 +3,16 @@ table {
     table-layout: auto;
     margin: 0 auto;
     border-radius: 16px;
-    background-color: pink; /* nse que color ponerle :3 */
-    color: white;
+    background-color: var(--bgc-elemento-body); /* nse que color ponerle :3 */
+    color: var(--texto-tema-body);
+    border: 1px solid var(--borde-elemento-body);
 }
 
 th,td {
     padding: 5px 7px;
 }
 
-td button {
+/* td button {
     background-color: inherit;
     border: none;
 }
@@ -19,7 +20,7 @@ td button {
 td button:hover {
     background-color: inherit;
     filter:brightness(100%)
-}
+} */
 
 th:first-child,
 td:first-child {
