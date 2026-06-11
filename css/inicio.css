@@ -97,7 +97,7 @@ ul{
     margin-top: 23px;
 }
 
-.contenedor-paginas{
+#contenedor-paginas{
     display: flex;
     justify-content: space-between;
     align-items: center;

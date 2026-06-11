@@ -86,20 +86,27 @@ async function cargarDatos() {
 }
 
 function cambiarPagina(){
-    const paginasHtml = document.getElementById('paginas')
+    const paginasHtml = document.getElementById('contenedor-paginas')
     if (!paginasHtml) return
 
     paginasHtml.addEventListener('click', (e) => {
         if (e.target.classList.contains('numero-pagina')) {
-            console.log(e.target.textContent.trim())
             const pagina = parseInt(e.target.textContent.trim()) 
             imprimirProductos(ultimoArray, pagina)
+        } else if (e.target.id === 'atras'){
+            if (paginaActual > 1) {
+                imprimirProductos(ultimoArray, paginaActual - 1)
+            }
+        } else if (e.target.id === 'adelante'){
+            if (paginaActual < Math.ceil(ultimoArray.length / productosPorPagina)) {
+                imprimirProductos(ultimoArray, paginaActual + 1)
+            }
         }
+
     })
 }
 
 function imprimirPaginas(productosTraidos){
-    const productosPorPagina = 3
     const cantidadPaginas = Math.ceil(productosTraidos.length / productosPorPagina)
 
     const paginasHtml = document.getElementById('paginas')
@@ -108,15 +115,16 @@ function imprimirPaginas(productosTraidos){
     for (let i = 1; i <= cantidadPaginas; i++) {
         paginasHtml.innerHTML += `<span class="numero-pagina">${i} </span>`
     }
+
+
 }
 
 async function imprimirProductos(productosTraidos, pagina = 1) {
     const contenedor = document.querySelector("#contenedor-productos")
     if (!contenedor) return
+    paginaActual = pagina
 
     contenedor.innerHTML = ""
-
-    const productosPorPagina = 3
     
     let inicio = (pagina - 1) * productosPorPagina
     let fin = inicio + productosPorPagina
@@ -279,4 +287,7 @@ let teclados = []
 let mouses = [] 
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [] 
 let ultimoArray = []
+let paginaActual = 1
+const productosPorPagina = 3
+
 init()
