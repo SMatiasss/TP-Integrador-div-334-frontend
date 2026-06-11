@@ -96,3 +96,22 @@ ul{
 .producto img, .producto h3, .precio-producto, .producto button{
     margin-top: 23px;
 }
+
+.contenedor-paginas{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 180px;
+    margin: 0 auto 30px;
+    height: 30px;
+    letter-spacing: 5px;
+    gap: 3px;
+}
+
+.numero-pagina{
+    width: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

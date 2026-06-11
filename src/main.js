@@ -22,6 +22,7 @@ async function initInicio() {
     ({ teclados, mouses } = await cargarDatos())
     ultimoArray = teclados
     imprimirProductos(teclados)
+    cambiarPagina()
 }
 
 function initCarrito() {
@@ -71,7 +72,7 @@ async function cargarDatos() {
     try {
         const response = await fetch('http://localhost:3000/api/productos')
         const datos = await response.json()
-        const apiProductos = datos.payload // const para evitar pisar la variable del DOM
+        const apiProductos = datos.payload 
 
         const listaTeclados = apiProductos.filter(p => p.categoria === "teclado")
         const listaMouses = apiProductos.filter(p => p.categoria === "mouse")
@@ -84,11 +85,45 @@ async function cargarDatos() {
     }
 }
 
-async function imprimirProductos(productosAMostrar) {
+function cambiarPagina(){
+    const paginasHtml = document.getElementById('paginas')
+    if (!paginasHtml) return
+
+    paginasHtml.addEventListener('click', (e) => {
+        if (e.target.classList.contains('numero-pagina')) {
+            console.log(e.target.textContent.trim())
+            const pagina = parseInt(e.target.textContent.trim()) 
+            imprimirProductos(ultimoArray, pagina)
+        }
+    })
+}
+
+function imprimirPaginas(productosTraidos){
+    const productosPorPagina = 3
+    const cantidadPaginas = Math.ceil(productosTraidos.length / productosPorPagina)
+
+    const paginasHtml = document.getElementById('paginas')
+
+    paginasHtml.innerHTML = ''
+    for (let i = 1; i <= cantidadPaginas; i++) {
+        paginasHtml.innerHTML += `<span class="numero-pagina">${i} </span>`
+    }
+}
+
+async function imprimirProductos(productosTraidos, pagina = 1) {
     const contenedor = document.querySelector("#contenedor-productos")
     if (!contenedor) return
 
-    contenedor.innerHTML = "" // Limpiamos el contenedor antes de renderizar para que no duplique
+    contenedor.innerHTML = ""
+
+    const productosPorPagina = 3
+    
+    let inicio = (pagina - 1) * productosPorPagina
+    let fin = inicio + productosPorPagina
+    
+    let productosAMostrar = productosTraidos.slice(inicio, fin)
+
+    imprimirPaginas(productosTraidos)
 
     try {
         productosAMostrar.forEach(producto => {
@@ -122,7 +157,6 @@ function filtrarProductos(texto) {
 
         console.log(resultado);
 
-        // Imprimo nueva lista.
         imprimirProductos(resultado)
     } else {
         imprimirProductos(ultimoArray)
@@ -201,7 +235,6 @@ function guardarCarrito() {
     localStorage.setItem("carrito", JSON.stringify(carrito))
 }
 
-// Cambié el nombre a 'menuProductos' para que jamás se choque con los datos de las funciones
 const menuProductos = document.querySelectorAll('.tipo-producto')
 menuProductos.forEach(tipoProducto => {
     tipoProducto.addEventListener('click', () => {
