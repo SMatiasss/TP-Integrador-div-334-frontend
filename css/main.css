@@ -8,6 +8,10 @@
     --color1-header: #6cc0f5;
     --color2-header: #cfedff;
     --bgc-hover: var(--texto-tema-body);
+    --bgc-input-cantidad: white;
+    --color-input-cantidad: black;
+    --border-input-cantidad: rgb(121, 121, 121);
+
 }
 
 * {
@@ -36,6 +40,9 @@ body.modo-oscuro{
     --color1-header: #01253b;
     --color2-header: #3f6f8d;
     --bgc-hover: var(--texto-tema-body);
+    --bgc-input-cantidad: 2B2B2D;
+    --color-input-cantidad: rgb(202, 202, 202);
+    --border-input-cantidad: rgb(195, 195, 195);
 }
 .instantaneo{
     transition: background-color 0s;

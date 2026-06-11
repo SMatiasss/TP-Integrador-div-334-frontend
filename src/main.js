@@ -143,15 +143,25 @@ async function imprimirProductos(productosTraidos, pagina = 1) {
                         <h3>${nombre}</h3>
                         <p class="precio-producto">$${producto.precio}</p>
                     </div>
-                    <div class="botones">
-                        <button onclick="actualizarCarrito(-1, '${nombre}')"> - </button>
-                        <button onclick="actualizarCarrito(1, '${nombre}')"> + </button>
+                    <div class="compra-rapida">
+                        <input type="number" id="cant-${nombre}" value="1" min="1" max="99" class="input-cantidad">
+                        <button class="btn-agregar" onclick="agregarVarios('${nombre}')">Agregar al carrito</button>
                     </div>
                 </li>
             `
         });
     } catch (error) {
         console.log(error)
+    }
+}
+
+function agregarVarios(nombre) {
+    const inputCantidad = document.getElementById(`cant-${nombre}`)
+    const cantidad = parseInt(inputCantidad.value) || 1
+
+    if (cantidad > 0) {
+        actualizarCarrito(cantidad, nombre)
+        inputCantidad.value = 1
     }
 }
 
@@ -218,14 +228,14 @@ function imprimirTabla() {
 /*************************************************************/
 /* Funciones de multiples pantallas */
 /*************************************************************/
-function actualizarCarrito(operador, nombre) {
+function actualizarCarrito(cantidad, nombre) {
     const producto = teclados.find(i => i.nombre == nombre) || mouses.find(i => i.nombre == nombre)
     const productoEnCarrito = carrito.find(i => i.producto.nombre == nombre)
 
     if (!productoEnCarrito) {
-        if (operador > 0) carrito.push({ producto: producto, cantidad: 1 })
+        if (cantidad > 0) carrito.push({ producto: producto, cantidad: cantidad })
     } else {
-        productoEnCarrito.cantidad += operador
+        productoEnCarrito.cantidad += cantidad
         if (productoEnCarrito.cantidad <= 0) {
             carrito.splice((carrito.findIndex(i => i.producto.nombre == nombre)), 1)
         }

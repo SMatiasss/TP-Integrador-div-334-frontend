@@ -1,3 +1,11 @@
+
+.input-cantidad::-webkit-outer-spin-button,
+.input-cantidad::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Solo para esconder los controladores de input number que no me dejan centrar bien el numero */
+
 .tipo-producto{
     border: none;
     font-size: 20px;
@@ -62,16 +70,15 @@ ul{
     width: 300px;
     padding: 20px;
     margin-bottom: 50px;
-    height: 420px;
+    height: 470px;
 }
 
-.producto:has(button:active) {
-    transform: scale(1.03);
-}
+
 
 .producto button:active {
-    transform: scale(1);
+    transform: scale(1.05);
 }
+
 
 .producto img{
     width: 100%;
@@ -97,6 +104,18 @@ ul{
     margin-top: 23px;
 }
 
+.producto input{
+    width: 50px;
+    text-align: center;
+    border-color: var(--border-input-cantidad); 
+    background-color: var(--bgc-input-cantidad);
+    color: var(--color-input-cantidad);
+}
+
+.btn-agregar{
+    font-weight:1;
+}
+
 #contenedor-paginas{
     display: flex;
     justify-content: space-between;
@@ -104,7 +123,6 @@ ul{
     width: 180px;
     margin: 0 auto 30px;
     height: 30px;
-    letter-spacing: 5px;
     gap: 3px;
 }
 
@@ -114,4 +132,7 @@ ul{
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+.numero-pagina:hover{
+    text-decoration: underline;
 }
