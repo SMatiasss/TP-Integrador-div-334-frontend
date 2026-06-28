@@ -1,3 +1,4 @@
+
 /*************************************************************/
 /* creación de inits */
 /*************************************************************/
@@ -8,6 +9,7 @@ function init() {
     initTicket()
     cambiarTema()
 }
+
 
 
 async function initIndex() {
@@ -29,6 +31,8 @@ function initCarrito() {
     if (!document.querySelector("#pagina-carrito")) return
 
     imprimirTabla()
+    imprimirTicket()
+
 }
 
 function initTicket() {
@@ -222,6 +226,101 @@ function imprimirTabla() {
 
     valorFinal.innerHTML = `Total a pagar: $${total}`
 }
+function imprimirTicket(){
+    const botonConfirmar = document.getElementById('btn-confirmar')
+
+    if (!botonConfirmar) return
+
+    botonConfirmar.addEventListener('click', () => {
+        if (carrito.length === 0) {
+            alert("El carrito está vacío.");
+            return;
+        }
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        let y = 20; 
+
+        
+        // Encabezado principal
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.text("TICKET DE COMPRA", 14, y);
+        y += 10;
+
+        // Linea decorativa
+        doc.setLineWidth(0.5);
+        doc.line(14, y, 196, y);
+        y += 10;
+
+        // Datos del cliente
+        const nombreCliente = localStorage.getItem('nombre') || 'Cliente';
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+        doc.text(`Cliente: ${nombreCliente}`, 14, y);
+        
+        // Fecha actual
+        const fecha = new Date().toLocaleDateString();
+        doc.text(`Fecha: ${fecha}`, 150, y);
+        y += 15;
+
+        // Encabezados
+        doc.setFont("helvetica", "bold");
+        doc.text("Producto", 14, y);
+        doc.text("Cant.", 110, y);
+        doc.text("Precio Unit.", 140, y);
+        doc.text("Subtotal", 175, y);
+        y += 6;
+
+        // Linea de los encabezados
+        doc.line(14, y, 196, y);
+        y += 8;
+
+        // Items
+        doc.setFont("helvetica", "normal");
+        let totalGeneral = 0;
+
+        carrito.forEach(item => {
+            const nombre = item.producto.nombre;
+            const cantidad = item.cantidad;
+            const precioUnitario = parseFloat(item.producto.precio);
+            const subtotal = precioUnitario * cantidad;
+            totalGeneral += subtotal;
+
+            // Columnas alineadas horizontalmente usando la coordenada X
+            doc.text(nombre, 14, y);
+            doc.text(cantidad.toString(), 114, y);
+            doc.text(`$${precioUnitario.toFixed(2)}`, 140, y);
+            doc.text(`$${subtotal.toFixed(2)}`, 175, y);
+
+            y += 10;
+        });
+
+        // Linea antes del total final
+        y += 2;
+        doc.line(14, y, 196, y);
+        y += 12;
+
+        // Total Final 
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(14);
+        doc.text(`TOTAL A PAGAR:`, 110, y);
+        doc.text(`$${totalGeneral.toFixed(2)}`, 175, y);
+        y += 15;
+
+        // Mensaje de despedida centrado
+        doc.setFont("helvetica", "italic");
+        doc.setFontSize(10);
+        doc.text("¡Muchas gracias por tu compra!", 105, y, { align: "center" });
+
+        // Descargar
+        doc.save(`Ticket_${nombreCliente.replace(/\s+/g, '_')}.pdf`);
+    })
+}
+
+
+/*************************************************************/
+/* Exclusivo de pantalla Ticket */
+/*************************************************************/
 
 
 
