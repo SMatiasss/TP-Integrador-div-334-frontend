@@ -70,7 +70,7 @@ function establecerNombre() {
 /*************************************************************/
 async function cargarDatos() {
     try {
-        const response = await fetch('http://localhost:3000/api/productos')
+        const response = await fetch('http://localhost:3000/api/products')
         const datos = await response.json()
         const apiProductos = datos.payload 
 
