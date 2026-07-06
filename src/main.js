@@ -140,9 +140,10 @@ async function imprimirProductos(productosTraidos, pagina = 1) {
     try {
         productosAMostrar.forEach(producto => {
             const nombre = producto.nombre
+            
             contenedor.innerHTML += `
                 <li class="producto">
-                    <img src="${producto.img}">
+                    <img src="http://localhost:3000${producto.img}">
                     <div class="contenido">
                         <h3>${nombre}</h3>
                         <p class="precio-producto">$${producto.precio}</p>
@@ -314,6 +315,8 @@ function imprimirTicket(){
 
         // Descargar
         doc.save(`Ticket_${nombreCliente.replace(/\s+/g, '_')}.pdf`);
+
+        window.location.href = "../../index.html";
     })
 }
 
