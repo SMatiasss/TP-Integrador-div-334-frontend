@@ -314,7 +314,11 @@ function imprimirTicket(){
         doc.text("¡Muchas gracias por tu compra!", 105, y, { align: "center" });
 
         // Descargar
+        console.log("Antes de guardar");
+
         doc.save(`Ticket_${nombreCliente.replace(/\s+/g, '_')}.pdf`);
+
+        console.log("Después de guardar");
 
         // Guarda la venta en la base de datos
         try {
@@ -334,6 +338,7 @@ function imprimirTicket(){
 
         // Limpio el carrito
         carrito = []
+        localStorage.removeItem("carrito");
         window.location.href = "../../index.html";
     })
 }
