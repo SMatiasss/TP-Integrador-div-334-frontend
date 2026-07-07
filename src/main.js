@@ -232,7 +232,7 @@ function imprimirTicket(){
 
     if (!botonConfirmar) return
 
-    botonConfirmar.addEventListener('click', () => {
+    botonConfirmar.addEventListener('click', async () => {
         if (carrito.length === 0) {
             alert("El carrito está vacío.");
             return;
@@ -316,6 +316,24 @@ function imprimirTicket(){
         // Descargar
         doc.save(`Ticket_${nombreCliente.replace(/\s+/g, '_')}.pdf`);
 
+        // Guarda la venta en la base de datos
+        try {
+            await fetch("http://localhost:3000/api/sales", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    total_price: totalGeneral,
+                    user_name: nombreCliente
+                })
+            });
+        } catch (error) {
+            console.error("Error al guardar la venta:", error);
+        }
+
+        // Limpio el carrito
+        carrito = []
         window.location.href = "../../index.html";
     })
 }
