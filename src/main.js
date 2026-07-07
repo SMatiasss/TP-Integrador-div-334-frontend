@@ -149,8 +149,9 @@ async function imprimirProductos(productosTraidos, pagina = 1) {
                         <p class="precio-producto">$${producto.precio}</p>
                     </div>
                     <div class="compra-rapida">
+                        <button class="btn-cantidad" onclick="actualizarCarrito(-1, '${nombre}')">-</button>
                         <input type="number" id="cant-${nombre}" value="1" min="1" max="99" class="input-cantidad">
-                        <button class="btn-agregar" onclick="agregarVarios('${nombre}')">Agregar al carrito</button>
+                        <button class="btn-cantidad" onclick="agregarVarios('${nombre}')">+</button>
                     </div>
                 </li>
             `
@@ -166,7 +167,6 @@ function agregarVarios(nombre) {
 
     if (cantidad > 0) {
         actualizarCarrito(cantidad, nombre)
-        inputCantidad.value = 1
     }
 }
 
@@ -336,7 +336,6 @@ function imprimirTicket(){
             console.error("Error al guardar la venta:", error);
         }
 
-        // Limpio el carrito
         carrito = []
         localStorage.removeItem("carrito");
         window.location.href = "../../index.html";
